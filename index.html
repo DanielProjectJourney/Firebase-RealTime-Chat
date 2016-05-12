@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firebase Chat</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+</head>
+<body>
+<input id="username" type="text" placeholder="Name"><br/>
+<input id="text" type="text" placeholder="Message"><br/>
+<button id="post">Post</button><br/>
+<div id="results"></div>
+<script>
+    var myFirebase = new Firebase('https://resplendent-inferno-350.firebaseio.com/');
+
+    var usernameInput = document.querySelector('#username');
+    var textInput = document.querySelector('#text');
+    var postButton = document.querySelector('#post');
+
+    postButton.addEventListener("click", function() {
+        var msgUser = usernameInput.value;
+        var msgText = textInput.value;
+//        myFirebase.set(msgUser + " says: " + msgText);
+        myFirebase.push({username:msgUser, text:msgText});
+        textInput.value = "";
+    });
+
+</script>
+</body>
+</html>
