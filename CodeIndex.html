@@ -5,12 +5,36 @@
     <title>Firebase Chat</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+
+    <style>
+        body {
+            font-family: 'HelveticaNeue-Light';
+        }
+        .msg {
+            margin: 10px 0;
+            padding: 10px;
+            width: 400px;
+            background-color: #efefef;
+        }
+        #username, #text {
+            margin: 5px 0px;
+        }
+        #post {
+            padding: 0.5em 1em;
+            background-color: #50b1ff;
+            border: none;
+            color: #FFF;
+        }
+    </style>
+
 </head>
 <body>
 <input id="username" type="text" placeholder="Name"><br/>
 <input id="text" type="text" placeholder="Message"><br/>
 <button id="post">Post</button><br/>
 <div id="results"></div>
+
+
 <script>
     var myFirebase = new Firebase('https://resplendent-inferno-350.firebaseio.com/');
 
@@ -40,6 +64,8 @@
             msgElement.appendChild(msgUsernameElement);
             msgElement.appendChild(msgTextElement);
 
+            // ADD THIS LINE
+            msgElement.className = "msg";
             document.getElementById("results").appendChild(msgElement);
         });
     }
