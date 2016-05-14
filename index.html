@@ -51,18 +51,20 @@
     		<div id="demo-chat-body" class="collapse in">
     			<div class="nano has-scrollbar" style="height:600px">
     				<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
-    					<ul class="list-unstyled media-block">
+    					<ul class="list-unstyled media-block" id="results">
 
 
 
 
-                            <li id="results"></li>
+
+
 
     						<li class="mar-btm">
     							<div class="media-left" >
-    								<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
+    								<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" >
     							</div>
-    							<div class="media-body pad-hor">
+
+    							<div class="media-body pad-hor ">
     								<div class="speech">
     									<p>Yes</p>
 
@@ -74,7 +76,7 @@
 
     						<li class="mar-btm">
     							<div class="media-right">
-    								<img src="http://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" alt="Profile Picture">
+    								<img src="http://bootdey.com/img/Content/avatar/avatar2.png" class="img-circle img-sm" >
     							</div>
     							<div class="media-body pad-hor speech-right">
     								<div class="speech">
@@ -146,43 +148,68 @@
     /** Function to add a data listener **/
     var startListening = function() {
         myFirebase.on('child_added', function(snapshot) {
+
+
+            var number = 1;
+
+
             var msg = snapshot.val();
-
-
+            var list = document.createElement("li");
+            list.className = "mar-btm";
             //Icon
             var iconDirection = document.createElement("div");
-            iconDirection.classList.add("media-left");
+
+            if ( number%2 == 0)
+            {
+                iconDirection.classList.add("media-left");
+            }else
+            {
+                iconDirection.classList.add("media-right");
+            }
+
+
+
             var img = document.createElement("img");
+            img.className = "img-circle img-sm";
+
+            if ( number%2 == 0)
+            {
+                img.src = "http://bootdey.com/img/Content/avatar/avatar1.png";
+            }else
+            {
+                img.src = "http://bootdey.com/img/Content/avatar/avatar2.png";
+            }
 
 
+
+            var text = document.createElement("p");
+            text.textContent = msg.text;
 
             //Message
             var msgTextElement = document.createElement("p");
             msgTextElement.textContent = msg.text;
             var direction = document.createElement("div");
-            var msgElement = document.createElement("div");
 
+            if ( number%2 == 0)
+            {
+                direction.className = "media-body pad-hor ";
+            }else
+            {
+                direction.className = "media-body pad-hor speech-right";
+            }
 
-
-            msgElement.appendChild(iconDirection).appendChild(img);
-            msgElement.appendChild(direction).appendChild(msgTextElement);
-
-
-            //Icon
 
             var speech = document.createElement("div");
+            speech.className = "speech";
 
+            list.appendChild(iconDirection).appendChild(img);
+            list.appendChild(direction).appendChild(speech).appendChild(text);
 
+            var result = document.getElementById("results");
 
-            $('#results').addClass("mar-btm");
+            result.appendChild(list);
 
-
-
-
-
-            document.getElementById("results").appendChild(msgElement);
-            document.getElementById("results").appendChild(speach);
-
+            number++;
 
 
 
