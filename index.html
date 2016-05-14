@@ -53,6 +53,10 @@
     				<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
     					<ul class="list-unstyled media-block">
 
+                            <li class="mar-btm">
+                                <div  id="results"></div>
+
+                            </li>
 
 							
     						<li class="mar-btm">
@@ -127,6 +131,20 @@
     var textInput = document.querySelector('#text');
     var postButton = document.querySelector('#post');
 
+
+    textInput.addEventListener("keypress",function (e) {
+
+        var key = e.which || e.keyCode;
+        if (key === 13)
+        {
+            var msgText = textInput.value;
+            myFirebase.push({text:msgText});
+            textInput.value = "";
+        }
+
+
+    });
+
     postButton.addEventListener("click", function() {
 
         var msgText = textInput.value;
@@ -138,17 +156,13 @@
     var startListening = function() {
         myFirebase.on('child_added', function(snapshot) {
             var msg = snapshot.val();
-
-
-
             var msgTextElement = document.createElement("p");
             msgTextElement.textContent = msg.text;
-
             var msgElement = document.createElement("div");
-            msgElement.appendChild(msgUsernameElement);
             msgElement.appendChild(msgTextElement);
-
             document.getElementById("results").appendChild(msgElement);
+
+
         });
     }
 
