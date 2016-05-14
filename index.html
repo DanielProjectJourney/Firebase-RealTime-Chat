@@ -149,9 +149,7 @@
     var startListening = function() {
         myFirebase.on('child_added', function(snapshot) {
 
-
-            var number = 1;
-
+            var number = 2;
 
             var msg = snapshot.val();
             var list = document.createElement("li");
@@ -209,14 +207,74 @@
 
             result.appendChild(list);
 
-            number++;
+        });
+    }
+
+    var myMessage = function() {
+        myFirebase.on('child_added', function(snapshot) {
+
+            var number = 1;
+
+            var msg = snapshot.val();
+            var list = document.createElement("li");
+            list.className = "mar-btm";
+            //Icon
+            var iconDirection = document.createElement("div");
+
+            if ( number%2 == 0)
+            {
+                iconDirection.classList.add("media-left");
+            }else
+            {
+                iconDirection.classList.add("media-right");
+            }
 
 
 
+            var img = document.createElement("img");
+            img.className = "img-circle img-sm";
 
+            if ( number%2 == 0)
+            {
+                img.src = "http://bootdey.com/img/Content/avatar/avatar1.png";
+            }else
+            {
+                img.src = "http://bootdey.com/img/Content/avatar/avatar2.png";
+            }
+
+
+
+            var text = document.createElement("p");
+            text.textContent = msg.text;
+
+            //Message
+            var msgTextElement = document.createElement("p");
+            msgTextElement.textContent = msg.text;
+            var direction = document.createElement("div");
+
+            if ( number%2 == 0)
+            {
+                direction.className = "media-body pad-hor ";
+            }else
+            {
+                direction.className = "media-body pad-hor speech-right";
+            }
+
+
+            var speech = document.createElement("div");
+            speech.className = "speech";
+
+            list.appendChild(iconDirection).appendChild(img);
+            list.appendChild(direction).appendChild(speech).appendChild(text);
+
+            var result = document.getElementById("results");
+
+            result.appendChild(list);
 
         });
     }
+
+
 
     // Begin listening for data
     startListening();
