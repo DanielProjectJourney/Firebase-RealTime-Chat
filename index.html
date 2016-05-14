@@ -53,23 +53,19 @@
     				<div class="nano-content pad-all" tabindex="0" style="right: -17px;">
     					<ul class="list-unstyled media-block">
 
-                            <li class="mar-btm">
-                                <div  id="results"></div>
 
-                            </li>
 
-							
+
+                            <li id="results"></li>
+
     						<li class="mar-btm">
-    							<div class="media-left">
+    							<div class="media-left" >
     								<img src="http://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle img-sm" alt="Profile Picture">
     							</div>
     							<div class="media-body pad-hor">
     								<div class="speech">
-    									<a href="#" class="media-heading">John Doe</a>
-    									<p>Hello Lucy, how can I help you today ?</p>
-    									<p class="speech-time">
-    									<i class="fa fa-clock-o fa-fw"></i>09:23AM
-    									</p>
+    									<p>Yes</p>
+
     								</div>
     							</div>
     						</li>
@@ -82,11 +78,7 @@
     							</div>
     							<div class="media-body pad-hor speech-right">
     								<div class="speech">
-    									<a href="#" class="media-heading">Lucy Doe</a>
     									<p>Hi, I want to buy a new shoes.</p>
-    									<p class="speech-time">
-    										<i class="fa fa-clock-o fa-fw"></i> 09:23AM
-    									</p>
     								</div>
     							</div>
     						</li>
@@ -124,7 +116,7 @@
 
 <script >
 
-    alert("I am ok");
+
 
     var myFirebase = new Firebase('https://resplendent-inferno-350.firebaseio.com/');
 
@@ -142,7 +134,6 @@
             textInput.value = "";
         }
 
-
     });
 
     postButton.addEventListener("click", function() {
@@ -156,11 +147,45 @@
     var startListening = function() {
         myFirebase.on('child_added', function(snapshot) {
             var msg = snapshot.val();
+
+
+            //Icon
+            var iconDirection = document.createElement("div");
+            iconDirection.classList.add("media-left");
+            var img = document.createElement("img");
+
+
+
+            //Message
             var msgTextElement = document.createElement("p");
             msgTextElement.textContent = msg.text;
+            var direction = document.createElement("div");
             var msgElement = document.createElement("div");
-            msgElement.appendChild(msgTextElement);
+
+
+
+            msgElement.appendChild(iconDirection).appendChild(img);
+            msgElement.appendChild(direction).appendChild(msgTextElement);
+
+
+            //Icon
+
+            var speech = document.createElement("div");
+
+
+
+            $('#results').addClass("mar-btm");
+
+
+
+
+
             document.getElementById("results").appendChild(msgElement);
+            document.getElementById("results").appendChild(speach);
+
+
+
+
 
 
         });
