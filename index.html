@@ -14,8 +14,8 @@
     -->
     <title>论文匿名撕逼大战讨论平台</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="icon" href="data:;base64,iVBORw0KGgo=">
-	<script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src='https://cdn.firebase.com/js/client/2.4.0/firebase.js'></script>
 	<link href="bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/chat.css" rel="stylesheet"/>
 
@@ -96,33 +96,72 @@
     			<div class="panel-footer">
     				<div class="row">
     					<div class="col-xs-9">
-    						<input type="text" placeholder="叨逼叨区域" class="form-control chat-input" style="height: 50px;font-size: 30px">
+    						<input type="text" id="text" placeholder="叨逼叨区域" class="form-control chat-input" style="height: 50px;font-size: 30px">
     					</div>
     					<div class="col-xs-3">
-    						<button class="btn btn-primary btn-block" type="submit" style="height: 50px">Send</button>
+    						<button id="post" class="btn btn-primary btn-block"  style="height: 50px">Send</button>
     					</div>
     				</div>
     			</div>
+
+
+
     		</div>
     	</div>
     </div>
 
+
+
+
+</body>
+
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-	var myFirebase = new Firebase('https://resplendent-inferno-350.firebaseio.com/');
+
+<script >
+
+    alert("I am ok");
+
+    var myFirebase = new Firebase('https://resplendent-inferno-350.firebaseio.com/');
+
+    var textInput = document.querySelector('#text');
+    var postButton = document.querySelector('#post');
+
+    postButton.addEventListener("click", function() {
+
+        var msgText = textInput.value;
+        myFirebase.push({text:msgText});
+        textInput.value = "";
+    });
+
+    /** Function to add a data listener **/
+    var startListening = function() {
+        myFirebase.on('child_added', function(snapshot) {
+            var msg = snapshot.val();
+
+
+
+            var msgTextElement = document.createElement("p");
+            msgTextElement.textContent = msg.text;
+
+            var msgElement = document.createElement("div");
+            msgElement.appendChild(msgUsernameElement);
+            msgElement.appendChild(msgTextElement);
+
+            document.getElementById("results").appendChild(msgElement);
+        });
+    }
+
+    // Begin listening for data
+    startListening();
 
 
 
 
 
-
-
-
-    
 
 </script>
-</body>
+
 </html>
 
 
