@@ -1,5 +1,5 @@
 # Firebase-RealTime-Chat
-<img src="layout.png" width="350">
+<img src="layout.png" >
 
 A Small Project Firebase Chat
 
