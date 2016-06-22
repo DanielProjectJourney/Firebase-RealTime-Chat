@@ -3,4 +3,6 @@
 
 A Small Project Firebase Chat
 
+Tech Stack : JavaScript & Firebase
+
 
